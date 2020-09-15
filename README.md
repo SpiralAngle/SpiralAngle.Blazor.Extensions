@@ -16,14 +16,15 @@ This helper simplifies getting access to model and field data within an `EditCon
 
 This helper simplifies interacting with `FieldIdentifiers`.
 
-Most important in this are the extensions to get the value from a `FieldIdentifier`. Ther
+Most important in this are the extensions to get the value from a `FieldIdentifier`. This is a simple example where we are just using the OnFieldChanged event on `EditContext to update a string.
 
-```csharp
+```csharp    
+    public Creature Creature { get; set; }
     private EditContext editContext;
     private string lastChange;
     protected override void OnInitialized()
     {
-        Creature = new Creature();
+        Creature = new Creature(); // simplifying here!
         editContext = new EditContext(Creature);
         editContext.OnFieldChanged += FieldChanged;
         base.OnInitialized();
@@ -33,4 +34,5 @@ Most important in this are the extensions to get the value from a `FieldIdentifi
     {
         lastChange = $"{e.FieldIdentifier.FieldName}:{e.FieldIdentifier.GetValue()}";
     }
+    // ... Don't forget to dispose event handlers, esp once you start passing the context around.
 ```
